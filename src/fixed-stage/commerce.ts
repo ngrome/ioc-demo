@@ -4,13 +4,18 @@ import { Customer } from './customer';
 import { Receipt } from './receipt';
 
 export class Commerce {
-  public processOrder(order: OrderInfo) {
-    const customer = new Customer();
-    const billing = new Billing();
-    const receipt = new Receipt();
+  public customer: Customer;
+  public billing: Billing;
+  public receipt: Receipt;
 
-    billing.processPayment(order.customer, order.credicard, order.price);
-    customer.UpdateCustomerOrder(order.customer, order.product);
-    receipt.sendReceipt(order);
+  constructor() {
+    this.customer = new Customer();
+    this.billing = new Billing();
+    this.receipt = new Receipt();
+  }
+  public processOrder(order: OrderInfo) {
+    this.billing.processPayment(order.customer, order.credicard, order.price);
+    this.customer.UpdateCustomerOrder(order.customer, order.product);
+    this.receipt.sendReceipt(order);
   }
 }
